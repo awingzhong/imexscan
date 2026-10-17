@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+tests/regression_out/
+.DS_Store
+tests/tmp/

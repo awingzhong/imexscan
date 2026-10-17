@@ -1,0 +1,47 @@
+{% set name = "inomine" %}
+{% set version = "0.1.0" %}
+{# TODO: 确认 GitHub 用户名后替换（阶段 3） #}
+{% set owner = "ZhongHY" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/{{ owner }}/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  # TODO: GitHub Release 发布后填入（shasum -a 256 下载的 tarball）
+  sha256: TODO_AFTER_GITHUB_RELEASE
+
+build:
+  number: 0
+  noarch: python
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vvv
+
+requirements:
+  host:
+    - python >=3.9
+    - pip
+    - setuptools >=77
+  run:
+    - python >=3.9
+    - prodigal
+    - hmmer
+
+test:
+  imports:
+    - inomine
+  commands:
+    - inomine --version
+    - inomine run --help
+    - inomine dif --help
+
+about:
+  home: https://github.com/{{ owner }}/{{ name }}
+  license: MIT
+  license_file: LICENSE
+  summary: Mining filamentous (Inovirus) prophages and their pHVR regions from bacterial genomes
+  dev_url: https://github.com/{{ owner }}/{{ name }}
+
+extra:
+  recipe-maintainers:
+    - {{ owner }}
