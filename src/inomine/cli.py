@@ -2,10 +2,18 @@
 
 import argparse
 import os
+import shutil
+import sys
 
 from . import __version__
 from . import dif as dif_mod
 from . import pipeline
+
+
+def _require_executable(executable, hint):
+    if shutil.which(executable) is None:
+        sys.exit(f"ERROR: '{executable}' not found. Activate the environment that "
+                 f"provides it (e.g. conda activate inomine) or {hint}.")
 
 
 def main(argv=None):
@@ -62,6 +70,8 @@ def main(argv=None):
 
 
 def _cmd_run(args):
+    _require_executable(args.prodigal, "pass --prodigal PATH")
+    _require_executable(args.hmmsearch, "pass --hmmsearch PATH")
     pipeline.run(input_dir=args.input, out_dir=args.output, threads=args.threads,
                  hmm_dir=args.hmm, min_hallmark=args.min_hallmark, evalue=args.evalue,
                  skip_dif=args.skip_dif, prodigal=args.prodigal, hmmsearch=args.hmmsearch)
@@ -80,5 +90,7 @@ def _cmd_dif(args):
 
 
 def _cmd_defense(args):
+    _require_executable("defense-finder",
+                        "install it with conda install -c bioconda defense-finder")
     pipeline.run_defense(args.input, args.output, threads=args.threads,
                          chunk_size=args.chunk_size)

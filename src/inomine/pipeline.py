@@ -16,6 +16,7 @@ from . import tables as tables_mod
 
 GENOME_EXTS = (".fa", ".fasta", ".fna")
 DEFAULT_HMM_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "Vibrio_Inovirus")
+PRODIGAL_ATTEMPTS = 3
 
 
 def find_genomes(genome_dir):
@@ -71,11 +72,21 @@ def run_prodigal(binary, fna, stem, prodigal_dir):
     with tempfile.TemporaryDirectory() as tmp:
         plain = _plain_fasta(fna, tmp)
         raw_faa, raw_gff = os.path.join(tmp, "raw.faa"), os.path.join(tmp, "raw.gff")
-        proc = subprocess.run(
-            [binary, "-i", plain, "-a", raw_faa, "-f", "gff", "-o", raw_gff, "-p", "meta", "-q"],
-            capture_output=True, text=True)
-        if proc.returncode != 0:
-            raise RuntimeError(f"prodigal failed: {proc.stderr.strip()[-300:]}")
+        for attempt in range(1, PRODIGAL_ATTEMPTS + 1):
+            for p in (raw_faa, raw_gff):
+                if os.path.exists(p):
+                    os.remove(p)
+            proc = subprocess.run(
+                [binary, "-i", plain, "-a", raw_faa, "-f", "gff", "-o", raw_gff, "-p", "meta", "-q"],
+                capture_output=True, text=True)
+            if proc.returncode == 0:
+                break
+            # prodigal on macOS/arm64 occasionally segfaults after writing truncated output
+            print(f"[warn] prodigal exited {proc.returncode} for {stem}, "
+                  f"retrying ({attempt}/{PRODIGAL_ATTEMPTS})", file=sys.stderr, flush=True)
+        else:
+            raise RuntimeError(f"prodigal failed (exit {proc.returncode}): "
+                               f"{proc.stderr.strip()[-300:]}")
         _prefix_faa(raw_faa, faa, stem)
         _prefix_gff(raw_gff, gff, stem)
     return True
