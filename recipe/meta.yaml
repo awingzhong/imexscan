@@ -1,7 +1,6 @@
 {% set name = "inomine" %}
 {% set version = "0.1.0" %}
-{# TODO: 确认 GitHub 用户名后替换（阶段 3） #}
-{% set owner = "ZhongHY" %}
+{% set owner = "awingzhong" %}
 
 package:
   name: {{ name }}

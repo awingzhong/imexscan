@@ -35,7 +35,7 @@ Given a directory of bacterial genome assemblies, InoMiner runs:
 Development install:
 
 ```bash
-git clone https://github.com/<owner>/inomine.git
+git clone https://github.com/awingzhong/inomine.git
 cd inomine
 conda create -n inomine -c conda-forge -c bioconda python=3.11 prodigal hmmer
 conda activate inomine
