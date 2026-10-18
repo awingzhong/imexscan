@@ -8,8 +8,7 @@ package:
 
 source:
   url: https://github.com/{{ owner }}/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  # TODO: GitHub Release 发布后填入（shasum -a 256 下载的 tarball）
-  sha256: TODO_AFTER_GITHUB_RELEASE
+  sha256: e5fed3cd99e02716ca020366a42c887aef9623dd3645544beb5fcf39496d84be
 
 build:
   number: 0

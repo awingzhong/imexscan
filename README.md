@@ -3,8 +3,8 @@
 **Ino**virus **Miner** — mining filamentous (Inovirus) prophages and their pHVR
 regions from bacterial genomes.
 
-> Status: v0.1.0 development release. Bioconda packaging is in progress; until
-> then use the development installation below.
+> Status: v0.1.0 released. Bioconda packaging is in progress; until then use
+> the development installation below.
 
 ## Workflow
 
