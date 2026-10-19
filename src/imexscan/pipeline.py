@@ -157,7 +157,7 @@ def run(input_dir, out_dir, threads=4, hmm_dir=None, min_hallmark=4, evalue="1e-
              "skip_dif": skip_dif, "prodigal": prodigal, "hmmsearch": hmmsearch}
             for g in genomes]
 
-    print(f"InoMiner: {len(genomes)} genomes, {threads} parallel workers, "
+    print(f"IMEXscan: {len(genomes)} genomes, {threads} parallel workers, "
           f"{len(hmm_files)} marker HMMs")
     by_stem, n_fail = {}, 0
     with ProcessPoolExecutor(max_workers=threads) as pool:
@@ -230,7 +230,7 @@ def _merge_defense_tables(out_dir):
 def run_defense(input_dir, out_dir, threads=8, chunk_size=5000):
     faa = os.path.join(input_dir, "tables", "FPphi_pHVR.faa")
     if not os.path.exists(faa):
-        raise SystemExit(f"Error: {faa} not found (run `inomine run` first)")
+        raise SystemExit(f"Error: {faa} not found (run `imexscan run` first)")
     exe = shutil.which("defense-finder")
     if not exe:
         raise SystemExit("Error: defense-finder not found in PATH.\n"

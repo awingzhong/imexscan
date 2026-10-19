@@ -1,4 +1,4 @@
-{% set name = "inomine" %}
+{% set name = "imexscan" %}
 {% set version = "0.1.0" %}
 {% set owner = "awingzhong" %}
 
@@ -27,11 +27,11 @@ requirements:
 
 test:
   imports:
-    - inomine
+    - imexscan
   commands:
-    - inomine --version
-    - inomine run --help
-    - inomine dif --help
+    - imexscan --version
+    - imexscan run --help
+    - imexscan dif --help
 
 about:
   home: https://github.com/{{ owner }}/{{ name }}

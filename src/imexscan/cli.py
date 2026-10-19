@@ -1,4 +1,4 @@
-"""Command-line interface for InoMiner."""
+"""Command-line interface for IMEXscan."""
 
 import argparse
 import os
@@ -13,13 +13,13 @@ from . import pipeline
 def _require_executable(executable, hint):
     if shutil.which(executable) is None:
         sys.exit(f"ERROR: '{executable}' not found. Activate the environment that "
-                 f"provides it (e.g. conda activate inomine) or {hint}.")
+                 f"provides it (e.g. conda activate imexscan) or {hint}.")
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(
-        prog="inomine",
-        description="InoMiner: mining filamentous (Inovirus) prophages and their "
+        prog="imexscan",
+        description="IMEXscan: mining filamentous (Inovirus) prophages and their "
                     "pHVR regions from bacterial genomes")
     parser.add_argument("-v", "--version", action="version",
                         version=f"%(prog)s {__version__}")
@@ -57,7 +57,7 @@ def main(argv=None):
                           help="annotate pHVR proteins with DefenseFinder "
                                "(requires defense-finder in PATH)")
     p_df.add_argument("-i", "--input", required=True, metavar="DIR",
-                      help="output directory of `inomine run`")
+                      help="output directory of `imexscan run`")
     p_df.add_argument("-o", "--output", required=True, metavar="DIR")
     p_df.add_argument("-t", "--threads", type=int, default=8,
                       help="threads per defense-finder run (default: 8)")

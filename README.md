@@ -1,14 +1,14 @@
-# InoMiner
+# IMEXscan
 
-**Ino**virus **Miner** — mining filamentous (Inovirus) prophages and their pHVR
-regions from bacterial genomes.
+Mining filamentous (Inovirus) prophages and their pHVR regions from bacterial
+genomes.
 
 > Status: v0.1.0 released. Bioconda packaging is in progress; until then use
 > the development installation below.
 
 ## Workflow
 
-Given a directory of bacterial genome assemblies, InoMiner runs:
+Given a directory of bacterial genome assemblies, IMEXscan runs:
 
 1. **Gene calling** — Prodigal (metagenomic mode) with strain-prefixed gene IDs.
 2. **Marker search** — hmmsearch with 16 curated inovirus marker HMMs
@@ -28,30 +28,30 @@ Given a directory of bacterial genome assemblies, InoMiner runs:
 - [`prodigal`](https://github.com/hyattpd/Prodigal) and
   [`hmmsearch`](http://hmmer.org/) in `PATH`
 - Optional: [DefenseFinder](https://github.com/mdmparis/defense-finder) for
-  `inomine defense`
+  `imexscan defense`
 
 ## Installation
 
 Development install:
 
 ```bash
-git clone https://github.com/awingzhong/inomine.git
-cd inomine
-conda create -n inomine -c conda-forge -c bioconda python=3.11 prodigal hmmer
-conda activate inomine
+git clone https://github.com/awingzhong/imexscan.git
+cd imexscan
+conda create -n imexscan -c conda-forge -c bioconda python=3.11 prodigal hmmer
+conda activate imexscan
 pip install -e .
 ```
 
 After the Bioconda release:
 
 ```bash
-conda create -n inomine -c conda-forge -c bioconda inomine
+conda create -n imexscan -c conda-forge -c bioconda imexscan
 ```
 
 ## Usage
 
 ```bash
-inomine run -i genomes/ -o results/ -t 16
+imexscan run -i genomes/ -o results/ -t 16
 ```
 
 Input genomes may be `.fa`, `.fasta`, `.fna`, optionally gzipped. Processing is
@@ -61,16 +61,16 @@ parallel across genomes; existing intermediate files are reused on re-runs
 Optional downstream defense-system annotation of pHVR proteins:
 
 ```bash
-inomine defense -i results/ -o defense_out/
+imexscan defense -i results/ -o defense_out/
 ```
 
 Scan only the dif-like *att* motif of one genome:
 
 ```bash
-inomine dif -i genome.fna -o genome-dif.csv
+imexscan dif -i genome.fna -o genome-dif.csv
 ```
 
-### Options for `inomine run`
+### Options for `imexscan run`
 
 | Option | Default | Description |
 |--------|---------|-------------|
@@ -97,7 +97,7 @@ inomine dif -i genome.fna -o genome-dif.csv
 
 ## Bundled marker HMMs
 
-The 16 marker profiles in `src/inomine/data/Vibrio_Inovirus/` comprise 14
+The 16 marker profiles in `src/imexscan/data/Vibrio_Inovirus/` comprise 14
 profiles derived from [InterPro](https://www.ebi.ac.uk/interpro/)/Pfam
 (CC0 1.0) and 2 self-built profiles. InterPro/Pfam downloadable data are
 redistributed under the

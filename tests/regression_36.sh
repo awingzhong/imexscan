@@ -1,5 +1,5 @@
 #!/bin/bash
-# InoMiner 36 株回归测试：新 CLI 全流程 vs 旧 shell 流程参考输出（必须完全一致）
+# IMEXscan 36 株回归测试：新 CLI 全流程 vs 旧 shell 流程参考输出（必须完全一致）
 # 用法: bash tests/regression_36.sh
 #
 # 已知参考数据过时点（不影响结论）：
@@ -16,13 +16,13 @@ GNM="$ROOT/00_36Vibrio/data/gnms"
 REF="$ROOT/05_29410Vibrio/test"
 REF_DIF="$ROOT/01_FPphi_mining/outputs/dif_motif"
 OUT="$HERE/regression_out"
-INOMINE="$HERE/../.venv/bin/inomine"
+IMEXSCAN="$HERE/../.venv/bin/imexscan"
 
 PRODIGAL=/opt/miniconda3/envs/prodigal/bin/prodigal
 HMMSEARCH=/opt/miniconda3/envs/hmmer/bin/hmmsearch
 
 rm -rf "$OUT"
-"$INOMINE" run -i "$GNM" -o "$OUT" -t 8 --prodigal "$PRODIGAL" --hmmsearch "$HMMSEARCH"
+"$IMEXSCAN" run -i "$GNM" -o "$OUT" -t 8 --prodigal "$PRODIGAL" --hmmsearch "$HMMSEARCH"
 
 fail=0
 echo
